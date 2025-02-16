@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/volunteer/**").hasAnyAuthority("ROLE_VOLUNTEER", "ROLE_ADMIN")
                 .antMatchers("/api/volunteercenter").permitAll()
                 .antMatchers("/api/volunteercenter/{id}").permitAll()
+                .antMatchers("/api/volunteercenter/{id}/volunteer").permitAll()
                 .antMatchers("/api/volunteercenter/create").hasAuthority("ROLE_ADMIN") /// *** работает некорректно -> не работает настройка доступа
                 .antMatchers("/api/volunteercenter/update/{id}").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/api/volunteercenter/delete/{id}").hasAuthority("ROLE_ADMIN")

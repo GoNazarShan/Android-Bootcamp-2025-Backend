@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface VolunteerCenterRepository extends JpaRepository<VolunteerCenter, Long> {
     Optional<VolunteerCenter> findByName(String name);
+
+    Optional<VolunteerCenter> findByCoordinates(String coordinates);
 }

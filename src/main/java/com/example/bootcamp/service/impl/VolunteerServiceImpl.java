@@ -66,7 +66,7 @@ public class VolunteerServiceImpl implements VolunteerService {
         volunteer.setPassword(passwordEncoder.encode(dto.getPassword()));
         volunteer.setAuthorities(Set.of(optionalAuthority.get()));
         volunteer.setActiveStatus(false);
-        volunteer.setVolunteerCenter(volunteerCenterRepository.findByName("Не указан").get());
+        volunteer.setVolunteerCenter(volunteerCenterRepository.findByName("не указан").get());
 
         return VolunteerMapper.convertToDto(volunteerRepository.save(volunteer));
     }
@@ -111,10 +111,10 @@ public class VolunteerServiceImpl implements VolunteerService {
         return VolunteerMapper.convertToDto(optionalVolunteer.get());
     }
 
-    @Override
-    public Page<VolunteerDTO> getAllVolunteerPaginated(Pageable pageable) {
-        return volunteerRepository.findAll(pageable).map(VolunteerMapper::convertToDto);
-    }
+//    @Override
+//    public Page<VolunteerDTO> getAllVolunteerPaginated(Pageable pageable) {
+//        return volunteerRepository.findAll(pageable).map(VolunteerMapper::convertToDto);
+//    }
 
     @Override
     public VolunteerDTO getVolunteerByName(String name) {

@@ -15,8 +15,8 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
     @EntityGraph(attributePaths = {"volunteerCenter", "authorities"})
     List<Volunteer> findAll();
 
-    @Override
-    Page<Volunteer> findAll(Pageable pageable);
+//    @Override
+//    Page<Volunteer> findAll(Pageable pageable);
 
     Optional<Volunteer> findByUsername(String username);
 

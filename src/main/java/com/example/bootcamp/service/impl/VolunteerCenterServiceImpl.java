@@ -1,6 +1,8 @@
 package com.example.bootcamp.service.impl;
 
+import com.example.bootcamp.dto.VolunteerCenterCoordinatesDTO;
 import com.example.bootcamp.dto.VolunteerCenterDTO;
+import com.example.bootcamp.dto.VolunteerDTO;
 import com.example.bootcamp.entity.VolunteerCenter;
 import com.example.bootcamp.exceptions.VolunteerCenterAlreadyExistException;
 import com.example.bootcamp.exceptions.VolunteerCenterNotFoundException;
@@ -8,6 +10,7 @@ import com.example.bootcamp.repository.VolunteerCenterRepository;
 import com.example.bootcamp.repository.VolunteerRepository;
 import com.example.bootcamp.service.VolunteerCenterService;
 import com.example.bootcamp.util.VolunteerCenterMapper;
+import com.example.bootcamp.util.VolunteerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +40,15 @@ public class VolunteerCenterServiceImpl implements VolunteerCenterService {
                 .orElseThrow(() -> new VolunteerCenterNotFoundException("Volunteer center not found!"));
     }
 
-//    @Override
-//    public List<VolunteerDTO> getVolunteerByVolunteerCenter(VolunteerCenterDTO dto) {
-//        return dto.getVolunteer();
-//    }
+    @Override
+    public List<VolunteerDTO> getVolunteerByVolunteerCenter(Long id) {
+        return volunteerCenterRepository.findById(id)
+                .orElseThrow(() -> new VolunteerCenterNotFoundException("Volunteer center with id "+id+" not found"))
+                .getVolunteer()
+                .stream()
+                .map(VolunteerMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public VolunteerCenterDTO createVolunteerCenter(VolunteerCenterDTO dto) {
@@ -72,4 +80,13 @@ public class VolunteerCenterServiceImpl implements VolunteerCenterService {
     public void deleteVolunteerCenter(Long id) {
         volunteerCenterRepository.deleteById(id);
     }
+
+    @Override
+    public VolunteerCenterDTO getVolunteerCenterByCoordinates(VolunteerCenterCoordinatesDTO dto){
+        return volunteerCenterRepository.findByCoordinates(dto.getCoordinates())
+                .map(VolunteerCenterMapper::convertToDto)
+                .orElseThrow(() -> new VolunteerCenterNotFoundException("Volunteer center with coordinates "+dto.getCoordinates()+" not found"));
+    }
 }
+
+

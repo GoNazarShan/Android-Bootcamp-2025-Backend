@@ -20,7 +20,7 @@ public interface VolunteerService {
 
     VolunteerDTO getVolunteerByUsername(String username);
 
-    Page<VolunteerDTO> getAllVolunteerPaginated(Pageable pageable);
+//    Page<VolunteerDTO> getAllVolunteerPaginated(Pageable pageable);
 
     VolunteerDTO getVolunteerByName(String name);
 }
